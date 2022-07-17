@@ -1,76 +1,21 @@
 package service;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
+
+import com.google.gson.Gson;
+
 import modal.Contact;
 
 public class AdressBookMain {	
 	
 	static List<Contact> addressBook=new ArrayList<Contact>();
 	
-	public void sortByCity() {
-		System.out.println("Sorted By City...");
-		Comparator<Contact> contactComparator =new  Comparator<Contact>() {
-			
-			@Override
-			public int compare(Contact c1, Contact c2) {
-				String contact1=c1.getCity().toUpperCase();
-				String contact2=c2.getCity().toUpperCase();
-
-				return contact1.compareTo(contact2);
-			}
-		};
-		
-		Collections.sort(addressBook, contactComparator);
-		for(Contact contact : addressBook) {
-			System.out.println(contact);
-		}
-	}
-	
-	public void sortByState() {
-		System.out.println("Sorted By State..");
-		
-		Comparator<Contact> contactComparator =new  Comparator<Contact>() {
-			
-			@Override
-			public int compare(Contact c1, Contact c2) {
-				String contact1=c1.getState().toUpperCase();
-				String contact2=c2.getState().toUpperCase();
-
-				return contact1.compareTo(contact2);
-			}
-		};
-		
-		Collections.sort(addressBook, contactComparator);
-		for(Contact contact : addressBook) {
-			System.out.println(contact);
-		}
-	}
-	
-	public void sortByZipCode() {
-		
-		System.out.println("Sorted By ZipCode..");
-		Comparator<Contact> contactComparator =new  Comparator<Contact>() {
-			
-			@Override
-			public int compare(Contact c1, Contact c2) {
-				String contact1=c1.getZipCode().toUpperCase();
-				String contact2=c2.getZipCode().toUpperCase();
-
-				return contact1.compareTo(contact2);
-			}
-		};
-		
-		Collections.sort(addressBook, contactComparator);
-		for(Contact contact : addressBook) {
-			System.out.println(contact);
-		}
-	}
 
 	public static void main(String[] args) {
-		AdressBookMain adressBookMain =new AdressBookMain();
 		
 		Contact contact1=new Contact("anuj", "solanki", "jaipur", "jaipur", "rajhsthan", "10", "7896345219", "anuj@gmail.com");
 		Contact contact2=new Contact("rahul", "singh", "udaipur",  "udaipur", "rajhsthan", "20", "7416985226", "rahul@gmail.com");
@@ -90,11 +35,18 @@ public class AdressBookMain {
 		addressBook.add(contact7);
 		addressBook.add(contact8);
 		
-		adressBookMain.sortByCity();
-		System.out.println();
-		adressBookMain.sortByState();
-		System.out.println();
-		adressBookMain.sortByZipCode();
+		
+		File addressBookFile= new File("addressBook.json");
+		try {
+			FileWriter writer=new FileWriter(addressBookFile);
+			Gson gson=new Gson();
+			String Json=gson.toJson(addressBook);
+			writer.write(Json);
+			writer.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		
 		
