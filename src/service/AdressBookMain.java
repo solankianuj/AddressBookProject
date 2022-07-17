@@ -1,14 +1,14 @@
 package service;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import com.google.gson.Gson;
 
 import modal.Contact;
 
@@ -17,7 +17,7 @@ public class AdressBookMain {
 	static List<Contact> addressBook=new ArrayList<Contact>();
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		
 		Contact contact1=new Contact("anuj", "solanki", "jaipur", "jaipur", "rajhsthan", "10", "7896345219", "anuj@gmail.com");
 		Contact contact2=new Contact("rahul", "singh", "udaipur",  "udaipur", "rajhsthan", "20", "7416985226", "rahul@gmail.com");
@@ -38,32 +38,42 @@ public class AdressBookMain {
 		addressBook.add(contact8);
 		
 		
-		File addressBookFile= new File("addressBook.json");
 		try {
-			FileWriter writer=new FileWriter(addressBookFile);
-			Gson gson=new Gson();
-			String Json=gson.toJson(addressBook);
-			writer.write(Json);
-			writer.close();
-
+			
+		FileOutputStream addressBookFile= new FileOutputStream("addressBook.txt");
+		try {
+			ObjectOutputStream objectOutputStream=new ObjectOutputStream(addressBookFile);
+			objectOutputStream.writeObject(addressBook.toString());
+			objectOutputStream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		try {
-			Scanner read=new Scanner(addressBookFile);
-			while(read.hasNextLine()) {
-				String file=read.nextLine();
-				System.out.println(file);
-			}
-			read.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		
+		FileInputStream addressBookFile;
+		try {
+			addressBookFile = new FileInputStream("addressBook.txt");
+			ObjectInputStream objectInputStream=new ObjectInputStream(addressBookFile);
+			Scanner sr=new Scanner(addressBookFile);
+			while(sr.hasNextLine()) {
+				String f=sr.nextLine();
+				System.out.println(f);
+			}
+			sr.close();
+			objectInputStream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 	}
-	}
+}
+		
+		
+
+	
 
 
 
