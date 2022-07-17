@@ -1,10 +1,12 @@
 package service;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 
@@ -48,6 +50,16 @@ public class AdressBookMain {
 			e.printStackTrace();
 		}
 
+		try {
+			Scanner read=new Scanner(addressBookFile);
+			while(read.hasNextLine()) {
+				String file=read.nextLine();
+				System.out.println(file);
+			}
+			read.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		
 	}
