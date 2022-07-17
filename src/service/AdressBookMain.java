@@ -1,210 +1,125 @@
 package service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
-import interfaces.IAddressBook;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import modal.Contact;
 
-public class AdressBookMain implements IAddressBook{
-
-
-	Map<String, HashMap<String, List<Contact>>> addressBookDictionary=new HashMap<String, HashMap<String, List<Contact>>>();
-	Map<String, List<Contact>> addressBookList=new HashMap<String, List<Contact>>();
-	List<Contact> rajhsthanAddressBook=new ArrayList<Contact>();
-	List<Contact> gujratAddressBook=new ArrayList<Contact>();
+public class AdressBookMain {
+	
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String city;
+	private String state;
+	private String zipCode;
+	private String phoneNumber;
+	private String emailId;
 	
 	
-	Scanner scan =new Scanner(System.in);
-
-	@Override
-	public void addContact(String firstName, String lastName, String address, String city, String state, String zipCode, String phoneNumber,
-			String email) {
-		
-		Contact contact=new Contact(firstName, lastName, address, city, state, zipCode, phoneNumber, email);
-		System.out.println("Enter State You Want Add Contact.");
-		state=scan.next();
-		
-		switch(state) {
-		case "gujrat" :
-			gujratAddressBook.add(contact);
-			addressBookList.put(state, gujratAddressBook);
-					break;
-					
-		case "rajhsthan":
-				rajhsthanAddressBook.add(contact);			
-				addressBookList.put(state, rajhsthanAddressBook);
-					break;
-		}
-		
-		System.out.println(addressBookDictionary);
-		
+	
+	public AdressBookMain (String firstName, String lastName, String address, String city, String state, String zipCode,
+			String phoneNumber, String emailId) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+		this.phoneNumber = phoneNumber;
+		this.emailId = emailId;
 	}
-
-	@Override
-	public void addAddressBook() {
-		addressBookDictionary.put("AddressBookDictionary", (HashMap<String, List<Contact>>) addressBookList);
+	
+	
+	public String getFirstName() {
+		return firstName;
 	}
-		
-	@Override
-	public void editDetails(String firstName, String lastName,String state) 
-	{
-		
-		System.out.println("Enter State You Want To Edit Contact.");
-		state=scan.next();
-		
-		switch(state) {
-		
-		case "gujrat": {
-			for (int i=0; i<gujratAddressBook.size() ; i++) {
-				
-				Contact personDetails=gujratAddressBook.get(i);
-				
-				if(personDetails.getFirstName().equalsIgnoreCase(firstName) && personDetails.getLastName().equalsIgnoreCase(lastName) ) {
-					System.out.println("1.=> To Edit First Name.\n"+"2.=> To Edit Last Name\n"+"3.=> To Edit Address\n"+"4.=> To Edit City\n"+"5.=> To Edit State\n"+"6.=> To Edit Zip Code\n"+"7.=> To Edit Phone Number\n"+"8.=> To Edit Email Id");
-					System.out.println("Enter Your Choice");
-					int choice=scan.nextInt();
-					
-					switch(choice) {
-					case 1: System.out.println("Enter New First Name.");
-							String newFirstName=scan.next();
-							newFirstName=personDetails.setFirstName(newFirstName);
-							break;
-					
-					case 2: System.out.println("Enter New Last Name.");
-					String newLastName=scan.next();
-					newLastName=personDetails.setLastName(newLastName);
-					break;		
-					
-					case 3: System.out.println("Enter New Address.");
-					String newAddress=scan.next();
-					newAddress=personDetails.setAddress(newAddress);
-					break;
-					
-					case 4: System.out.println("Enter New City.");
-					String newCity=scan.next();
-					newCity=personDetails.setCity(newCity);
-					break;
-					
-					case 5: System.out.println("Enter New State.");
-					String newState=scan.next();
-					newState=personDetails.setState(newState);
-					break;
-					
-					case 6: System.out.println("Enter New ZipCode.");
-					String newZipCode=scan.next();
-					newZipCode=personDetails.setZipCode(newZipCode);
-					break;
-					
-					case 7: System.out.println("Enter New Phone Number.");
-					String newPhoneNumber=scan.next();
-					newPhoneNumber=personDetails.setPhoneNumber(newPhoneNumber);
-					break;
-					
-					case 8: System.out.println("Enter New Email Id.");
-					String newEmail=scan.next();
-					newEmail=personDetails.setEmailId(newEmail);
-					break;
-					}
-				}
-			}
-			break;
-		}
-		case "rajhsthan": {
-			
-				for (int i=0; i<rajhsthanAddressBook.size() ; i++) {
-				
-				Contact personDetails=rajhsthanAddressBook.get(i);
-				
-				if(personDetails.getFirstName().equalsIgnoreCase(firstName) && personDetails.getLastName().equalsIgnoreCase(lastName) ) {
-					System.out.println("1.=> To Edit First Name.\n"+"2.=> To Edit Last Name\n"+"3.=> To Edit Address\n"+"4.=> To Edit City\n"+"5.=> To Edit State\n"+"6.=> To Edit Zip Code\n"+"7.=> To Edit Phone Number\n"+"8.=> To Edit Email Id");
-					System.out.println("Enter Your Choice");
-					int choice=scan.nextInt();
-					
-					switch(choice) {
-					case 1: System.out.println("Enter New First Name.");
-							String newFirstName=scan.next();
-							newFirstName=personDetails.setFirstName(newFirstName);
-							break;
-					
-					case 2: System.out.println("Enter New Last Name.");
-					String newLastName=scan.next();
-					newLastName=personDetails.setLastName(newLastName);
-					break;		
-					
-					case 3: System.out.println("Enter New Address.");
-					String newAddress=scan.next();
-					newAddress=personDetails.setAddress(newAddress);
-					break;
-					
-					case 4: System.out.println("Enter New City.");
-					String newCity=scan.next();
-					newCity=personDetails.setCity(newCity);
-					break;
-					
-					case 5: System.out.println("Enter New State.");
-					String newState=scan.next();
-					newState=personDetails.setState(newState);
-					break;
-					
-					case 6: System.out.println("Enter New ZipCode.");
-					String newZipCode=scan.next();
-					newZipCode=personDetails.setZipCode(newZipCode);
-					break;
-					
-					case 7: System.out.println("Enter New Phone Number.");
-					String newPhoneNumber=scan.next();
-					newPhoneNumber=personDetails.setPhoneNumber(newPhoneNumber);
-					break;
-					
-					case 8: System.out.println("Enter New Email Id.");
-					String newEmail=scan.next();
-					newEmail=personDetails.setEmailId(newEmail);
-					break;
-					}
-				}
-			}
-			break;
-			
-		}
-		
-		}
-		
+	public String setFirstName(String firstName) {
+		return this.firstName = firstName;
 	}
-
-
+	public String getLastName() {
+		return lastName;
+	}
+	public String setLastName(String lastName) {
+		return this.lastName = lastName;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public String setAddress(String address) {
+		return this.address = address;
+	}
+	public String getCity() {
+		return city;
+	}
+	public String setCity(String city) {
+		return this.city = city;
+	}
+	public String getState() {
+		return state;
+	}
+	public String setState(String state) {
+		return this.state = state;
+	}
+	public String getZipCode() {
+		return zipCode;
+	}
+	public String setZipCode(String zipCode) {
+		return this.zipCode = zipCode;
+	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public String setPhoneNumber(String phoneNumber) {
+		return this.phoneNumber = phoneNumber;
+	}
+	public String getEmailId() {
+		return emailId;
+	}
+	public String setEmailId(String emailId) {
+		return this.emailId = emailId;
+	}
 	@Override
-	public void deletePerson(String firstName, String lastName,String state) {
-		System.out.println("Enter State You Want to Delete Contact.");
-		state=scan.next();
-		
-		switch(state) {
-		case "gujrat":{
-			for (int i=0 ; i<gujratAddressBook.size();i++) {
-				Contact personDetails=gujratAddressBook.get(i);
-				if( personDetails.getFirstName().compareToIgnoreCase(firstName)==0) {
-					gujratAddressBook.remove(i);
-					return;
-				}
-		}
-			break;
-		}
-		case "rajhsthan":{
-			for (int i=0 ; i<rajhsthanAddressBook.size();i++) {
-				Contact personDetails=rajhsthanAddressBook.get(i);
-				if( personDetails.getFirstName().compareToIgnoreCase(firstName)==0) {
-					rajhsthanAddressBook.remove(i);
-					return;
-				}
-		}
-			break;
-			
-		}	
-		}
-	  }
+	public String toString() {
+		return "Contact Details [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
+				+ ", state=" + state + ", zipCode=" + zipCode + ", phoneNumber=" + phoneNumber + ", emailId=" + emailId
+				+ "]";
+	}
+	
+	
+	
+	static List<AdressBookMain> rajhsthanAddressBook=new ArrayList<AdressBookMain>();
+	static List<AdressBookMain> gujratAddressBook=new ArrayList<AdressBookMain>();
+	static List<AdressBookMain> maharshtrAddressBook=new ArrayList<AdressBookMain>();
+	
+	
 
+	public static void main(String[] args) {
+//		AdressBookMain adressBookMain=new AdressBookMain(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
+		AdressBookMain contact1=new AdressBookMain("anuj", "solanki", "jaipur", "jaipur", "rajhsthan", "7896", "7896345219", "anuj@gmail.com");
+		AdressBookMain contact2=new AdressBookMain("rahul", "singh", "udaipur", "udaipur", "rajhsthan", "7456", "7416985226", "rahul@gmail.com");
+		
+		AdressBookMain contact3=new AdressBookMain("gourav", "solanki", "surat", "surat", "gujrat", "7896", "7896345219", "gourav@gmail.com");
+		AdressBookMain contact4=new AdressBookMain("akshy", "singh", "ahamdabad", "surat", "gujart", "7456", "7416985226", "akshay@gmail.com");
+		
+		AdressBookMain contact5=new AdressBookMain("jaydeep", "singh", "mumbai", "mubai", "maharashtra", "7896", "7896345219", "jaydeep@gmail.com");
+		AdressBookMain contact6=new AdressBookMain("rajat", "bawri", "pune", "pune", "maharashtra", "7456", "7416985226", "rajat@gmail.com");
+		
+		rajhsthanAddressBook.add(contact1);
+		rajhsthanAddressBook.add(contact2);
+		gujratAddressBook.add(contact3);
+		gujratAddressBook.add(contact4);
+		maharshtrAddressBook.add(contact5);
+		maharshtrAddressBook.add(contact6);
+		
+		
+		System.out.println("List Of Person In Rajhsthan");
+		rajhsthanAddressBook.stream().filter(x-> x.state=="rajhsthan").forEach(x-> System.out.println(x));
+
+	}
 	}
 
 
