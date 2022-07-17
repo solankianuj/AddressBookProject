@@ -1,134 +1,53 @@
 package service;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
 import modal.Contact;
 
-public class AdressBookMain {
+public class AdressBookMain {	
 	
-	private String firstName;
-	private String lastName;
-	private String address;
-	private String city;
-	private String state;
-	private String zipCode;
-	private String phoneNumber;
-	private String emailId;
+	static List<Contact> addressBook=new ArrayList<Contact>();
 	
-	
-	
-	public AdressBookMain (String firstName, String lastName, String address, String city, String state, String zipCode,
-			String phoneNumber, String emailId) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.zipCode = zipCode;
-		this.phoneNumber = phoneNumber;
-		this.emailId = emailId;
-	}
-	
-	
-	public String getFirstName() {
-		return firstName;
-	}
-	public String setFirstName(String firstName) {
-		return this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public String setLastName(String lastName) {
-		return this.lastName = lastName;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public String setAddress(String address) {
-		return this.address = address;
-	}
-	public String getCity() {
-		return city;
-	}
-	public String setCity(String city) {
-		return this.city = city;
-	}
-	public String getState() {
-		return state;
-	}
-	public String setState(String state) {
-		return this.state = state;
-	}
-	public String getZipCode() {
-		return zipCode;
-	}
-	public String setZipCode(String zipCode) {
-		return this.zipCode = zipCode;
-	}
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-	public String setPhoneNumber(String phoneNumber) {
-		return this.phoneNumber = phoneNumber;
-	}
-	public String getEmailId() {
-		return emailId;
-	}
-	public String setEmailId(String emailId) {
-		return this.emailId = emailId;
-	}
-	@Override
-	public String toString() {
-		return "Contact Details [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", city=" + city
-				+ ", state=" + state + ", zipCode=" + zipCode + ", phoneNumber=" + phoneNumber + ", emailId=" + emailId
-				+ "]";
-	}
-	
-	
-	
-	static List<AdressBookMain> rajhsthanAddressBook=new ArrayList<AdressBookMain>();
-	static List<AdressBookMain> gujratAddressBook=new ArrayList<AdressBookMain>();
-	static List<AdressBookMain> maharshtrAddressBook=new ArrayList<AdressBookMain>();
-	
+	public static Comparator<Contact> contactNameComparator =new  Comparator<Contact>() {
+		
+		@Override
+		public int compare(Contact c1, Contact c2) {
+			String contact1=c1.getFirstName().toUpperCase();
+			String contact2=c2.getFirstName().toUpperCase();
+
+			return contact1.compareTo(contact2);
+		}
+	};
 	
 
 	public static void main(String[] args) {
 		
-		AdressBookMain contact1=new AdressBookMain("anuj", "solanki", "jaipur", "jaipur", "rajhsthan", "7896", "7896345219", "anuj@gmail.com");
-		AdressBookMain contact7=new AdressBookMain("ranveer", "singh", "jaipur", "jaipur", "rajhsthan", "7896", "89632478", "ranveer@gmail.com");
-		AdressBookMain contact8=new AdressBookMain("sharukh", "khan", "udaipur", "udaipur", "rajhsthan", "7896", "745698523", "sarukk@gmail.com");
-		AdressBookMain contact2=new AdressBookMain("rahul", "singh", "udaipur", "udaipur", "rajhsthan", "7456", "7416985226", "rahul@gmail.com");
-		
-		AdressBookMain contact3=new AdressBookMain("gourav", "solanki", "surat", "surat", "gujrat", "7896", "7896345219", "gourav@gmail.com");
-		AdressBookMain contact4=new AdressBookMain("akshy", "singh", "ahamdabad", "surat", "gujart", "7456", "7416985226", "akshay@gmail.com");
-		
-		AdressBookMain contact5=new AdressBookMain("jaydeep", "singh", "mumbai", "mubai", "maharashtra", "7896", "7896345219", "jaydeep@gmail.com");
-		AdressBookMain contact6=new AdressBookMain("rajat", "bawri", "pune", "pune", "maharashtra", "7456", "7416985226", "rajat@gmail.com");
-		
-		rajhsthanAddressBook.add(contact1);
-		rajhsthanAddressBook.add(contact2);
-		rajhsthanAddressBook.add(contact7);
-		rajhsthanAddressBook.add(contact8);
-		gujratAddressBook.add(contact3);
-		gujratAddressBook.add(contact4);
-		maharshtrAddressBook.add(contact5);
-		maharshtrAddressBook.add(contact6);
-		
-		
-		System.out.println("Number Of  Person In Rajhsthan");
-		long numOfPerson= rajhsthanAddressBook.stream().filter(x-> x.state=="rajhsthan").count();
-		System.out.println(numOfPerson);
-		System.out.println("Number Of Perso In Jaipur");
-		long result = rajhsthanAddressBook.stream().filter(x-> x.city=="jaipur").count();
-		System.out.println(result);
-		
-		
+		Contact contact1=new Contact("anuj", "solanki", "jaipur", "jaipur", "rajhsthan", "7896", "7896345219", "anuj@gmail.com");
+		Contact contact2=new Contact("rahul", "singh", "udaipur", "udaipur", "rajhsthan", "7456", "7416985226", "rahul@gmail.com");
+		Contact contact3=new Contact("gourav", "solanki", "surat", "surat", "gujrat", "7896", "7896345219", "gourav@gmail.com");
+		Contact contact4=new Contact("akshy", "singh", "ahamdabad", "surat", "gujart", "7456", "7416985226", "akshay@gmail.com");
+		Contact contact5=new Contact("jaydeep", "singh", "mumbai", "mubai", "maharashtra", "7896", "7896345219", "jaydeep@gmail.com");
+		Contact contact6=new Contact("rajat", "bawri", "pune", "pune", "maharashtra", "7456", "7416985226", "rajat@gmail.com");
+		Contact contact7=new Contact("ranveer", "singh", "jaipur", "jaipur", "rajhsthan", "7896", "89632478", "ranveer@gmail.com");
+		Contact contact8=new Contact("sharukh", "khan", "udaipur", "udaipur", "rajhsthan", "7896", "745698523", "sarukk@gmail.com");
 
+		addressBook.add(contact1);
+		addressBook.add(contact2);
+		addressBook.add(contact3);
+		addressBook.add(contact4);
+		addressBook.add(contact5);
+		addressBook.add(contact6);
+		addressBook.add(contact7);
+		addressBook.add(contact8);
+
+		
+		
+		Collections.sort(addressBook, AdressBookMain.contactNameComparator);
+		for(Contact contact : addressBook) {
+			System.out.println(contact);
+		}
 	}
 	}
 
