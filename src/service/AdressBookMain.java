@@ -98,8 +98,10 @@ public class AdressBookMain {
 	
 
 	public static void main(String[] args) {
-//		AdressBookMain adressBookMain=new AdressBookMain(firstName, lastName, address, city, state, zipCode, phoneNumber, emailId);
+		
 		AdressBookMain contact1=new AdressBookMain("anuj", "solanki", "jaipur", "jaipur", "rajhsthan", "7896", "7896345219", "anuj@gmail.com");
+		AdressBookMain contact7=new AdressBookMain("ranveer", "singh", "jaipur", "jaipur", "rajhsthan", "7896", "89632478", "ranveer@gmail.com");
+		AdressBookMain contact8=new AdressBookMain("sharukh", "khan", "udaipur", "udaipur", "rajhsthan", "7896", "745698523", "sarukk@gmail.com");
 		AdressBookMain contact2=new AdressBookMain("rahul", "singh", "udaipur", "udaipur", "rajhsthan", "7456", "7416985226", "rahul@gmail.com");
 		
 		AdressBookMain contact3=new AdressBookMain("gourav", "solanki", "surat", "surat", "gujrat", "7896", "7896345219", "gourav@gmail.com");
@@ -110,6 +112,8 @@ public class AdressBookMain {
 		
 		rajhsthanAddressBook.add(contact1);
 		rajhsthanAddressBook.add(contact2);
+		rajhsthanAddressBook.add(contact7);
+		rajhsthanAddressBook.add(contact8);
 		gujratAddressBook.add(contact3);
 		gujratAddressBook.add(contact4);
 		maharshtrAddressBook.add(contact5);
@@ -117,7 +121,13 @@ public class AdressBookMain {
 		
 		
 		System.out.println("List Of Person In Rajhsthan");
-		rajhsthanAddressBook.stream().filter(x-> x.state=="rajhsthan").forEach(x-> System.out.println(x));
+		List<AdressBookMain> listOfPersonInRajhsthan= rajhsthanAddressBook.stream().filter(x-> x.state=="rajhsthan").collect(Collectors.toList());
+		System.out.println(listOfPersonInRajhsthan);
+		System.out.println("List Of Perso In Jaipur");
+		List<AdressBookMain> listOfPersonInJaipur= rajhsthanAddressBook.stream().filter(x-> x.city=="jaipur").collect(Collectors.toList());
+		System.out.println(listOfPersonInJaipur);
+		
+		
 
 	}
 	}
