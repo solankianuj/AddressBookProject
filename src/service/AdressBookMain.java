@@ -120,12 +120,12 @@ public class AdressBookMain {
 		maharshtrAddressBook.add(contact6);
 		
 		
-		System.out.println("List Of Person In Rajhsthan");
-		List<AdressBookMain> listOfPersonInRajhsthan= rajhsthanAddressBook.stream().filter(x-> x.state=="rajhsthan").collect(Collectors.toList());
-		System.out.println(listOfPersonInRajhsthan);
-		System.out.println("List Of Perso In Jaipur");
-		List<AdressBookMain> listOfPersonInJaipur= rajhsthanAddressBook.stream().filter(x-> x.city=="jaipur").collect(Collectors.toList());
-		System.out.println(listOfPersonInJaipur);
+		System.out.println("Number Of  Person In Rajhsthan");
+		long numOfPerson= rajhsthanAddressBook.stream().filter(x-> x.state=="rajhsthan").count();
+		System.out.println(numOfPerson);
+		System.out.println("Number Of Perso In Jaipur");
+		long result = rajhsthanAddressBook.stream().filter(x-> x.city=="jaipur").count();
+		System.out.println(result);
 		
 		
 
